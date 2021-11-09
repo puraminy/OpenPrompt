@@ -16,7 +16,7 @@ generation: # Adding any arguments for generation here.
 
 plm:
   model_name: t5
-  model_path: t5-small
+  model_path: /content/drive/MyDrive/fat5-base
   optimize: 
     freeze_para: False
 
