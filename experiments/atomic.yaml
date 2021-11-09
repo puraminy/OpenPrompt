@@ -1,6 +1,6 @@
 dataset:
   name: atomic 
-  path: ../datasets/atomic
+  path: ./atomic
 
 task: generation
 
