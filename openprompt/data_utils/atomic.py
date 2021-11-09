@@ -62,7 +62,12 @@ class ATOMICProcessor(DataProcessor):
         examples = []
         path = os.path.join(data_dir, "{}.tsv".format(split))
         split_df = pd.read_table(path)
+        num_samples = 1000 if split = "train" else 300
+        int j = 0
         for i, row in split_df.iterrows():
+            j += 1
+            if j > num_samples:
+                break
             src = str(row["input_text"])
             tgt = str(row["target_text"])
             example = InputExample(guid=str(i), text_a=src, tgt_text=tgt)
