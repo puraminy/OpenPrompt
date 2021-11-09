@@ -1,6 +1,6 @@
 dataset:
   name: atomic 
-  path: ./atomic
+  path: ./db_atomic
 
 task: generation
 
@@ -16,7 +16,7 @@ generation: # Adding any arguments for generation here.
 
 plm:
   model_name: t5
-  model_path: /home/ahmad/pret/t5-small
+  model_path: t5-small
   optimize: 
     freeze_para: False
 
