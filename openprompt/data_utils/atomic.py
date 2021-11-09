@@ -62,13 +62,11 @@ class ATOMICProcessor(DataProcessor):
         examples = []
         path = os.path.join(data_dir, "{}.tsv".format(split))
         split_df = pd.read_table(path)
-        i = 0
-        for row in split_df.iterrows():
+        for i, row in split_df.iterrows():
             src = row["input_text"]
             tgt = row["target_text"]
             example = InputExample(guid=str(i), text_a=src, tgt_text=tgt)
             examples.append(example)
-            i += 1
         return examples
 
 PROCESSORS = {
