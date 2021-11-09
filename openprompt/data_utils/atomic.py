@@ -13,7 +13,6 @@
 """
 This file contains the logic for loading data for all Conditional Generation tasks.
 """
-from comet.train.common import *
 from openprompt.data_utils.utils import InputExample
 import os
 import json, csv
@@ -24,10 +23,6 @@ from typing import List, Dict, Callable
 
 from openprompt.utils.logging import logger
 from openprompt.data_utils.data_processor import DataProcessor
-
-
-
-
 
 class ATOMICProcessor(DataProcessor):
     """
