@@ -72,9 +72,11 @@ class ATOMICProcessor(DataProcessor):
         wrap = False
         frozen = False
         ignore_blanks = False
+        include = ""
+        exclude = ""
         num_samples = 100 if split  == "train" else 50
         qtemp, anstemp = create_templates(method, wrap, frozen)
-        include, exclude = filter_inputs(include="", exclude="", lang=lang)
+        include, exclude = filter_inputs(include, exclude, lang)
 
         (atomic_query_responses, 
          atomic_flattened,
