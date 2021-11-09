@@ -1,6 +1,6 @@
 dataset:
-  name: webnlg
-  path: ../datasets/CondGen/webnlg_2017
+  name: atomic 
+  path: ../datasets/atomic
 
 task: generation
 
@@ -16,7 +16,7 @@ generation: # Adding any arguments for generation here.
 
 plm:
   model_name: t5
-  model_path: t5-base
+  model_path: /home/ahmad/pret/t5-small
   optimize: 
     freeze_para: False
 
@@ -40,7 +40,7 @@ verbalizer:
 
 manual_template:
   choice: 0
-  file_path: ../scripts/CondGen/webnlg_2017/manual_template.txt
+  file_path: ../scripts/atomic/soft_template.txt
 
 
 
