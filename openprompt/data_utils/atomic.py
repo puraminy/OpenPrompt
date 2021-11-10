@@ -78,8 +78,8 @@ class ATOMICProcessor(DataProcessor):
         qtemp, anstemp = create_templates(method, wrap, frozen)
         #qtemp = "{event}"
         #anstemp = "{resp}"
-        logger.info("qtemp: %s", qtemp)
-        logger.info("ans temp: %s", anstemp)
+        print("qtemp: %s", qtemp)
+        print("ans temp: %s", anstemp)
         include, exclude = filter_inputs(include, exclude, lang)
 
         (atomic_query_responses, 
