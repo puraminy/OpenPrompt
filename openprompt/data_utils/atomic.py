@@ -59,10 +59,12 @@ class ATOMICProcessor(DataProcessor):
     def __init__(self):
         super().__init__()
         self.labels = None
+        self.data = {}
 
     #def get_manual_template(self):
     #    return self.manual_template
-
+    def get_val_data(self):
+        return self.data["dev"]
     def get_examples(self, data_dir: str, split: str) -> List[InputExample]:
         examples = []
         path = os.path.join(data_dir, "{}.tsv".format(split))
@@ -82,7 +84,7 @@ class ATOMICProcessor(DataProcessor):
         print("ans temp: %s", anstemp)
         include, exclude = filter_inputs(include, exclude, lang)
 
-        (atomic_query_responses, 
+        (self.data[split], 
          atomic_flattened,
          num_records
         )= fill_data(split_df, split,

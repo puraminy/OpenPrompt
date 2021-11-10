@@ -9,6 +9,7 @@
 import argparse
 import torch
 from openprompt.utils.logging import logger
+from comet.train.eval import *
 
 parser = argparse.ArgumentParser("")
 parser.add_argument("--lr", type=float, default=5e-5)
@@ -151,9 +152,15 @@ for epoch in range(5):
             print("Epoch {}, global_step {} average loss: {} lr: {}".format(epoch, global_step, (tot_loss-log_loss)/500, scheduler.get_last_lr()[0]), flush=True)
             log_loss = tot_loss
 
-generated_sentence = evaluate(prompt_model, test_dataloader)
+#generated_sentence = evaluate(prompt_model, test_dataloader)
+val_data = ATOMICProcessor().get_val_data()
+inter = False
+save_path = ""
+output_name = "op_results"
+val_records=len(dataset["validation"])
+eval(prompt_model, tokenizer, val_data, inter, save_path, output_name, val_records, gen_param)  
 
-with open(f"results_{args.plm_eval_mode}.txt",'w') as f:
-    for i in generated_sentence:
-        f.write(i+"\n")
+#with open(f"results_{args.plm_eval_mode}.txt",'w') as f:
+#    for i in generated_sentence:
+#        f.write(i+"\n")
 
