@@ -30,6 +30,7 @@ dataset['test'] = ap.get_test_examples("../experiments/db_atomic/")
 # load a pretrained model, its tokenizer, its config, and its TokenzerWrapper by one function 
 from openprompt.plms import load_plm
 plm, tokenizer, model_config, WrapperClass = load_plm(args.model, args.model_name_or_path)
+tokenizer = extend_tokenizer(tokenizer, "xIntent")
 
 # Instantiating the PrefixTuning Template !
 from openprompt.prompts.prefix_tuning_template import PrefixTuningTemplate
