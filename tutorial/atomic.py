@@ -177,7 +177,7 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model):
             loss.backward()
             tot_loss += loss.item()
             mean_loss = tot_loss / global_step
-            print("Epoch {}, global_step {} average loss: {.2f} lr: {}".format(epoch, global_step, mean_loss, scheduler.get_last_lr()[0]), flush=True)
+            print("Epoch {}, global_step {} average loss: {:.2f} lr: {}".format(epoch, global_step, mean_loss, scheduler.get_last_lr()[0]), flush=True)
             torch.nn.utils.clip_grad_norm_(mytemplate.parameters(), 1.0)
             optimizer.step()
             scheduler.step()
