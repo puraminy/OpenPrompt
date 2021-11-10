@@ -197,5 +197,5 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model):
     #with open(f"results_{plm_eval_mode}.txt",'w') as f:
     #    for i in generated_sentence:
     #        f.write(i+"\n")
-if __name__ == "__main__"
+if __name__ == "__main__":
    main()
