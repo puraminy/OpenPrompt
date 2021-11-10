@@ -18,7 +18,7 @@ parser.add_argument("-mp","--model_name_or_path", default='t5-base')
 args = parser.parse_args()
 print(args)
 
-from openprompt.data_utils.atomic import ATOMICProcessor
+from openprompt.data_utils._atomic import ATOMICProcessor
 dataset = {}
 dataset['train'] = ATOMICProcessor().get_train_examples("../experiments/db_atomic/")
 dataset['validation'] = ATOMICProcessor().get_dev_examples("../experiments/db_atomic/")
