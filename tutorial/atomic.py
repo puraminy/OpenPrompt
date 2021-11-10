@@ -197,14 +197,14 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
             loss.backward()
             tot_loss += loss.item()
             mean_loss = tot_loss / global_step
-            pbar.set_description("Epoch {}, global_step {} average loss: {:.2f} ".format(epoch, global_step, mean_loss), flush=True)
+            pbar.set_description("Epoch {}, global_step {} average loss: {:.2f} ".format(epoch, global_step, mean_loss))
             torch.nn.utils.clip_grad_norm_(mytemplate.parameters(), 1.0)
             optimizer.step()
             scheduler.step()
             optimizer.zero_grad()
             pbar.update(1)
             if global_step %500 ==0: 
-                print("Epoch {}, global_step {} average loss: {} lr: {}".format(epoch, global_step, (tot_loss-log_loss)/500, scheduler.get_last_lr()[0]))
+                pbar.set_description("Epoch {}, global_step {} average loss: {} lr: {}".format(epoch, global_step, (tot_loss-log_loss)/500, scheduler.get_last_lr()[0]))
                 log_loss = tot_loss
 
     generated_sentence = evaluate(prompt_model, test_dataloader)
