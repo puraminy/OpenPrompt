@@ -158,6 +158,7 @@ val_data = ap.get_val_data()
 inter = False
 save_path = ""
 output_name = "op_results"
+gen_param = "greedy"
 val_records=len(dataset["validation"])
 eval(prompt_model, tokenizer, val_data, inter, save_path, output_name, val_records, gen_param)  
 
