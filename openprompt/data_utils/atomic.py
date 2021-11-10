@@ -78,7 +78,7 @@ class ATOMICProcessor(DataProcessor):
         ignore_blanks = False
         include = ""
         exclude = ""
-        num_samples = 0
+        num_samples = 2000
         qtemp, anstemp = create_templates(method, wrap, frozen)
         #qtemp = "{event}"
         #anstemp = "{resp}"

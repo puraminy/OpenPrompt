@@ -49,7 +49,7 @@ import click
     help=""
 )
 @click.option(
-    "--num_samples",
+    "--train_samples",
     "-n",
     default=100,
     type=int,
@@ -65,9 +65,9 @@ import click
 def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples, val_samples):
     dataset = {}
     ap = ATOMICProcessor()
-    dataset['train'] = ap.get_train_examples("../experiments/db_atomic/", train_samples)
-    dataset['validation'] = ap.get_dev_examples("../experiments/db_atomic/", val_samples)
-    dataset['test'] = ap.get_test_examples("../experiments/db_atomic/", val_samples)
+    dataset['train'] = ap.get_train_examples("../experiments/db_atomic/")
+    dataset['validation'] = ap.get_dev_examples("../experiments/db_atomic/")
+    dataset['test'] = ap.get_test_examples("../experiments/db_atomic/")
 
     dataset['train'] = dataset['train'][:train_samples]
     dataset['validation'] = dataset['validation'][:val_samples]
