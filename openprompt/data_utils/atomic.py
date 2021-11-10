@@ -90,8 +90,7 @@ class ATOMICProcessor(DataProcessor):
                             include,
                             exclude)
         i = 0
-        logger.info("num records train: %s", num_records["train"])
-        logger.info("num records val: %s", num_records["dev"])
+        logger.info("num records %s: %s", split, num_records)
         for src, tgt in atomic_flattened:
             example = InputExample(guid=str(i), text_a=src, tgt_text=tgt)
             examples.append(example)
