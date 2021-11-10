@@ -69,8 +69,15 @@ import click
     is_flag=True,
     help=""
 )
-def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples, val_samples,frozen):
+@click.option(
+    "--soft",
+    "-s",
+    is_flag=True,
+    help=""
+)
+def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples, val_samples,frozen, soft):
     dataset = {}
+    batch_size = 5
     ap = ATOMICProcessor()
     dataset['train'] = ap.get_train_examples("../experiments/db_atomic/")
     dataset['validation'] = ap.get_dev_examples("../experiments/db_atomic/")
@@ -93,9 +100,11 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
     # mytemplate = PrefixTuningTemplate(model=plm, tokenizer=tokenizer)
     # is equal to 
     # mytemplate = PrefixTuningTemplate(model=plm, tokenizer=tokenizer, text='{"placeholder":"text_a"} {"mask"}')
-    mytemplate = PrefixTuningTemplate(model=plm,  tokenizer=tokenizer, text='{"soft"} {"soft"} {"soft"} {"soft"} {"placeholder":"text_a"} {"special": "<eos>"} {"mask"} ', using_decoder_past_key_values=False)
+    if soft:
+        mytemplate = PrefixTuningTemplate(model=plm,  tokenizer=tokenizer, text='{"soft"} {"soft"} {"soft"} {"soft"} {"placeholder":"text_a"} {"special": "<eos>"} {"mask"} ', using_decoder_past_key_values=False)
+    else:
+        mytemplate = PrefixTuningTemplate(model=plm,  tokenizer=tokenizer, text='{"placeholder":"text_a"} {"special": "<eos>"} {"mask"} ', using_decoder_past_key_values=False)
 
-    #mytemplate = PrefixTuningTemplate(model=plm,  tokenizer=tokenizer, text='{"placeholder":"text_a"} {"special": "<eos>"} {"mask"} ', using_decoder_past_key_values=False)
     # To better understand how does the template wrap the example, we visualize one instance.
     # You may observe that the example doesn't end with <|endoftext|> token. Don't worry, adding specific end-of-text token
     # is a language-model-specific token. we will add it for you in the TokenizerWrapper once you pass `predict_eos_token=True`
@@ -111,17 +120,17 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
     from openprompt import PromptDataLoader
     train_dataloader = PromptDataLoader(dataset=dataset["train"], template=mytemplate, tokenizer=tokenizer, 
         tokenizer_wrapper_class=WrapperClass, max_seq_length=256, decoder_max_length=256, 
-        batch_size=5,shuffle=True, teacher_forcing=True, predict_eos_token=True, # be sure to pass predict_eos_token=True if your tempalte doesn't contain one, or you model may fail to stop generation.
+        batch_size=batch_size,shuffle=True, teacher_forcing=True, predict_eos_token=True, # be sure to pass predict_eos_token=True if your tempalte doesn't contain one, or you model may fail to stop generation.
         truncate_method="head")
 
     validation_dataloader = PromptDataLoader(dataset=dataset["validation"], template=mytemplate, tokenizer=tokenizer, 
         tokenizer_wrapper_class=WrapperClass, max_seq_length=256, decoder_max_length=256, 
-        batch_size=5,shuffle=False, teacher_forcing=False, predict_eos_token=True,
+        batch_size=batch_size,shuffle=False, teacher_forcing=False, predict_eos_token=True,
         truncate_method="head")
 
     test_dataloader = PromptDataLoader(dataset=dataset["test"], template=mytemplate, tokenizer=tokenizer, 
         tokenizer_wrapper_class=WrapperClass, max_seq_length=256, decoder_max_length=256, 
-        batch_size=5,shuffle=False, teacher_forcing=False, predict_eos_token=True,
+        batch_size=batch_size,shuffle=False, teacher_forcing=False, predict_eos_token=True,
         truncate_method="head")
 
     # load the pipeline model PromptForGeneration.
@@ -191,9 +200,10 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
     global_step = 0 
     tot_loss = 0 
     log_loss = 0
+    num_epochs =3
     #tttttttttttt
-    pbar = tqdm()
-    for epoch in range(3):
+    pbar = tqdm(total=train_samples*num_epochs//batch_size)
+    for epoch in range(num_epochs):
         prompt_model.train()
         for step, inputs in enumerate(train_dataloader):
             global_step +=1
