@@ -78,7 +78,7 @@ class ATOMICProcessor(DataProcessor):
         ignore_blanks = False
         include = ""
         exclude = ""
-        num_samples = 100 if split  == "train" else 50
+        num_samples = 0
         qtemp, anstemp = create_templates(method, wrap, frozen)
         #qtemp = "{event}"
         #anstemp = "{resp}"
