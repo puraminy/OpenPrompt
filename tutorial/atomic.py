@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser("")
 parser.add_argument("--lr", type=float, default=5e-5)
 parser.add_argument("--plm_eval_mode", action="store_true")
 parser.add_argument("--model", type=str, default='t5')  # tested model are gpt2/t5
-parser.add_argument("--model_name_or_path", default='t5-base')
+parser.add_argument("-mp","--model_name_or_path", default='t5-base')
 args = parser.parse_args()
 print(args)
 

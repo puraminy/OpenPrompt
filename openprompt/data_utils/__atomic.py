@@ -13,7 +13,6 @@
 """
 This file contains the logic for loading data for all Conditional Generation tasks.
 """
-from comet.train.common import *
 from openprompt.data_utils.utils import InputExample
 import os
 import json, csv
@@ -24,10 +23,6 @@ from typing import List, Dict, Callable
 
 from openprompt.utils.logging import logger
 from openprompt.data_utils.data_processor import DataProcessor
-
-
-
-
 
 class ATOMICProcessor(DataProcessor):
     """
@@ -67,33 +62,16 @@ class ATOMICProcessor(DataProcessor):
         examples = []
         path = os.path.join(data_dir, "{}.tsv".format(split))
         split_df = pd.read_table(path)
-        method = "sup"
-        lang = "en"
-        wrap = False
-        frozen = False
-        ignore_blanks = False
-        include = ""
-        exclude = ""
-        num_samples = 100 if split  == "train" else 50
-        qtemp, anstemp = create_templates(method, wrap, frozen)
-        print(qtemp)
-        print(anstemp)
-        include, exclude = filter_inputs(include, exclude, lang)
-
-        (atomic_query_responses, 
-         atomic_flattened,
-         num_records
-        )= fill_data(split_df, split,
-                            qtemp, anstemp,
-                            num_samples, 
-                            ignore_blanks,
-                            include,
-                            exclude)
-        i = 0
-        for src, tgt in atomic_flattened:
+        num_samples = 1000 if split == "train" else 300
+        j = 0
+        for i, row in split_df.iterrows():
+            j += 1
+            if j > num_samples:
+                break
+            src = str(row["input_text"])
+            tgt = str(row["target_text"])
             example = InputExample(guid=str(i), text_a=src, tgt_text=tgt)
             examples.append(example)
-            i += 1
         return examples
 
 PROCESSORS = {
