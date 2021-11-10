@@ -193,7 +193,7 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
     log_loss = 0
     #tttttttttttt
     pbar = tqdm()
-    for epoch in range(1):
+    for epoch in range(3):
         prompt_model.train()
         for step, inputs in enumerate(train_dataloader):
             global_step +=1
