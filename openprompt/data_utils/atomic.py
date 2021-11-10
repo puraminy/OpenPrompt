@@ -80,8 +80,8 @@ class ATOMICProcessor(DataProcessor):
         exclude = ""
         num_samples = 2000
         qtemp, anstemp = create_templates(method, wrap, frozen)
-        #qtemp = "{event}"
-        #anstemp = "{resp}"
+        qtemp = "{event}"
+        anstemp = "{resp}"
         print("qtemp: ", qtemp)
         print("ans temp: ", anstemp)
         include, exclude = filter_inputs(include, exclude, lang)
