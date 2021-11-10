@@ -63,7 +63,13 @@ import click
     type=int,
     help=""
 )
-def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples, val_samples):
+@click.option(
+    "--frozen",
+    "-f",
+    is_flag=True,
+    help=""
+)
+def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples, val_samples,frozen):
     dataset = {}
     ap = ATOMICProcessor()
     dataset['train'] = ap.get_train_examples("../experiments/db_atomic/")
@@ -121,7 +127,7 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
     # load the pipeline model PromptForGeneration.
     from openprompt import PromptForGeneration
     use_cuda = True
-    prompt_model = PromptForGeneration(plm=plm,template=mytemplate, freeze_plm=True,tokenizer=tokenizer, plm_eval_mode=plm_eval_mode)
+    prompt_model = PromptForGeneration(plm=plm,template=mytemplate, freeze_plm=frozen,tokenizer=tokenizer, plm_eval_mode=plm_eval_mode)
     if use_cuda:
         prompt_model=  prompt_model.cuda()
 
