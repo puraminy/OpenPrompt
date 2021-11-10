@@ -42,10 +42,10 @@ mytemplate = PrefixTuningTemplate(model=plm,  tokenizer=tokenizer, text='{"soft"
 # You may observe that the example doesn't end with <|endoftext|> token. Don't worry, adding specific end-of-text token
 # is a language-model-specific token. we will add it for you in the TokenizerWrapper once you pass `predict_eos_token=True`
 an_example = dataset['train'][0]
-logger.info(an_example)
+print(an_example)
 
 wrapped_example = mytemplate.wrap_one_example(an_example) 
-logger.info(wrapped_example)
+print(wrapped_example)
 
 
 # Your can loop over the dataset by yourself by subsequently call mytemplate.wrap_one_example  and WrapperClass().tokenizer()
@@ -147,7 +147,7 @@ for epoch in range(5):
         scheduler.step()
         optimizer.zero_grad()
         if global_step %500 ==0: 
-            logger.info("Epoch {}, global_step {} average loss: {} lr: {}".format(epoch, global_step, (tot_loss-log_loss)/500, scheduler.get_last_lr()[0]), flush=True)
+            print("Epoch {}, global_step {} average loss: {} lr: {}".format(epoch, global_step, (tot_loss-log_loss)/500, scheduler.get_last_lr()[0]), flush=True)
             log_loss = tot_loss
 
 generated_sentence = evaluate(prompt_model, test_dataloader)
