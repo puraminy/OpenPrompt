@@ -70,7 +70,7 @@ test_dataloader = PromptDataLoader(dataset=dataset["test"], template=mytemplate,
 
 # load the pipeline model PromptForGeneration.
 from openprompt import PromptForGeneration
-use_cuda = True
+use_cuda = False
 prompt_model = PromptForGeneration(plm=plm,template=mytemplate, freeze_plm=True,tokenizer=tokenizer, plm_eval_mode=args.plm_eval_mode)
 if use_cuda:
     prompt_model=  prompt_model.cuda()

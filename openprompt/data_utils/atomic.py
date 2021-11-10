@@ -64,7 +64,7 @@ class ATOMICProcessor(DataProcessor):
     #def get_manual_template(self):
     #    return self.manual_template
     def get_val_data(self):
-        return self.data["dev"]
+        return self.data["validation"]
     def get_examples(self, data_dir: str, split: str) -> List[InputExample]:
         examples = []
         path = os.path.join(data_dir, "{}.tsv".format(split))
