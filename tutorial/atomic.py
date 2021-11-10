@@ -160,6 +160,7 @@ save_path = ""
 output_name = "op_results"
 gen_param = "greedy"
 val_records=len(dataset["validation"])
+prompt_model.eval()
 eval(prompt_model, tokenizer, val_data, inter, save_path, output_name, val_records, gen_param)  
 
 #with open(f"results_{args.plm_eval_mode}.txt",'w') as f:
