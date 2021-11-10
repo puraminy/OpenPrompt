@@ -167,7 +167,7 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model):
     global_step = 0 
     tot_loss = 0 
     log_loss = 0
-    for epoch in range(5):
+    for epoch in range(1):
         prompt_model.train()
         for step, inputs in enumerate(train_dataloader):
             global_step +=1
@@ -176,6 +176,8 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model):
             loss = prompt_model(inputs)
             loss.backward()
             tot_loss += loss.item()
+            mean_loss = totl_loss / global_step
+            print("Epoch {}, global_step {} average loss: {.2f} lr: {}".format(epoch, global_step, mean_loss, scheduler.get_last_lr()[0]), flush=True)
             torch.nn.utils.clip_grad_norm_(mytemplate.parameters(), 1.0)
             optimizer.step()
             scheduler.step()
