@@ -95,8 +95,8 @@ class ATOMICProcessor(DataProcessor):
                             ignore_blanks,
                             include,
                             exclude)
-        slef.data[split] = data
         i = 0
+        self.data[split] = data
         print("num records ", split, num_records)
         for src, tgt in atomic_flattened:
             example = InputExample(guid=str(i), text_a=src, tgt_text=tgt)

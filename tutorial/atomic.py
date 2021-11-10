@@ -21,9 +21,10 @@ print(args)
 
 from openprompt.data_utils.atomic import ATOMICProcessor
 dataset = {}
-dataset['train'] = ATOMICProcessor().get_train_examples("../experiments/db_atomic/")
-dataset['validation'] = ATOMICProcessor().get_dev_examples("../experiments/db_atomic/")
-dataset['test'] = ATOMICProcessor().get_test_examples("../experiments/db_atomic/")
+ap = ATOMICProcessor()
+dataset['train'] = ap.get_train_examples("../experiments/db_atomic/")
+dataset['validation'] = ap.get_dev_examples("../experiments/db_atomic/")
+dataset['test'] = ap.get_test_examples("../experiments/db_atomic/")
 
 
 # load a pretrained model, its tokenizer, its config, and its TokenzerWrapper by one function 
@@ -153,7 +154,7 @@ for epoch in range(5):
             log_loss = tot_loss
 
 #generated_sentence = evaluate(prompt_model, test_dataloader)
-val_data = ATOMICProcessor().get_val_data()
+val_data = ap.get_val_data()
 inter = False
 save_path = ""
 output_name = "op_results"
