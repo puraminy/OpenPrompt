@@ -12,7 +12,8 @@ from openprompt.utils.logging import logger
 from comet.train.eval import *
 from comet.train.common import *
 from openprompt.data_utils.atomic import ATOMICProcessor
-
+from tqdm import tqdm
+from pathlib import Path
 import click
 
 @click.command()
@@ -184,6 +185,8 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
     global_step = 0 
     tot_loss = 0 
     log_loss = 0
+    #tttttttttttt
+    pbar = tqdm()
     for epoch in range(1):
         prompt_model.train()
         for step, inputs in enumerate(train_dataloader):
@@ -194,11 +197,12 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
             loss.backward()
             tot_loss += loss.item()
             mean_loss = tot_loss / global_step
-            print("Epoch {}, global_step {} average loss: {:.2f} ".format(epoch, global_step, mean_loss), flush=True)
+            pbar.set_description("Epoch {}, global_step {} average loss: {:.2f} ".format(epoch, global_step, mean_loss), flush=True)
             torch.nn.utils.clip_grad_norm_(mytemplate.parameters(), 1.0)
             optimizer.step()
             scheduler.step()
             optimizer.zero_grad()
+            pbar.update(1)
             if global_step %500 ==0: 
                 print("Epoch {}, global_step {} average loss: {} lr: {}".format(epoch, global_step, (tot_loss-log_loss)/500, scheduler.get_last_lr()[0]), flush=True)
                 log_loss = tot_loss
