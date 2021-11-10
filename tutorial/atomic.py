@@ -204,7 +204,7 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
             optimizer.zero_grad()
             pbar.update(1)
             if global_step %500 ==0: 
-                print("Epoch {}, global_step {} average loss: {} lr: {}".format(epoch, global_step, (tot_loss-log_loss)/500, scheduler.get_last_lr()[0]), flush=True)
+                print("Epoch {}, global_step {} average loss: {} lr: {}".format(epoch, global_step, (tot_loss-log_loss)/500, scheduler.get_last_lr()[0]))
                 log_loss = tot_loss
 
     generated_sentence = evaluate(prompt_model, test_dataloader)
