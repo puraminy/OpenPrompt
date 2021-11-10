@@ -93,9 +93,9 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
     # mytemplate = PrefixTuningTemplate(model=plm, tokenizer=tokenizer)
     # is equal to 
     # mytemplate = PrefixTuningTemplate(model=plm, tokenizer=tokenizer, text='{"placeholder":"text_a"} {"mask"}')
-    #mytemplate = PrefixTuningTemplate(model=plm,  tokenizer=tokenizer, text='{"soft"} {"soft"} {"soft"} {"soft"} {"placeholder":"text_a"} {"special": "<eos>"} {"mask"} ', using_decoder_past_key_values=False)
+    mytemplate = PrefixTuningTemplate(model=plm,  tokenizer=tokenizer, text='{"soft"} {"soft"} {"soft"} {"soft"} {"placeholder":"text_a"} {"special": "<eos>"} {"mask"} ', using_decoder_past_key_values=False)
 
-    mytemplate = PrefixTuningTemplate(model=plm,  tokenizer=tokenizer, text='{"placeholder":"text_a"} {"special": "<eos>"} {"mask"} ', using_decoder_past_key_values=False)
+    #mytemplate = PrefixTuningTemplate(model=plm,  tokenizer=tokenizer, text='{"placeholder":"text_a"} {"special": "<eos>"} {"mask"} ', using_decoder_past_key_values=False)
     # To better understand how does the template wrap the example, we visualize one instance.
     # You may observe that the example doesn't end with <|endoftext|> token. Don't worry, adding specific end-of-text token
     # is a language-model-specific token. we will add it for you in the TokenizerWrapper once you pass `predict_eos_token=True`
