@@ -81,8 +81,8 @@ class ATOMICProcessor(DataProcessor):
         qtemp, anstemp = create_templates(method, wrap, frozen)
         #qtemp = "{event}"
         #anstemp = "{resp}"
-        print("qtemp: %s", qtemp)
-        print("ans temp: %s", anstemp)
+        print("qtemp: ", qtemp)
+        print("ans temp: ", anstemp)
         include, exclude = filter_inputs(include, exclude, lang)
 
         (self.data[split], 
@@ -95,7 +95,7 @@ class ATOMICProcessor(DataProcessor):
                             include,
                             exclude)
         i = 0
-        print("num records %s: %s", split, num_records)
+        print("num records ", split, num_records)
         for src, tgt in atomic_flattened:
             example = InputExample(guid=str(i), text_a=src, tgt_text=tgt)
             examples.append(example)
