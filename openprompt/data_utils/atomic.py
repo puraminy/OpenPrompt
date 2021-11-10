@@ -64,6 +64,7 @@ class ATOMICProcessor(DataProcessor):
     #def get_manual_template(self):
     #    return self.manual_template
     def get_val_data(self):
+        print(self.data.keys())
         return self.data["dev"]
     def get_examples(self, data_dir: str, split: str) -> List[InputExample]:
         examples = []
@@ -85,7 +86,7 @@ class ATOMICProcessor(DataProcessor):
         print("ans temp: ", anstemp)
         include, exclude = filter_inputs(include, exclude, lang)
 
-        (self.data[split], 
+        (data, 
          atomic_flattened,
          num_records
         )= fill_data(split_df, split,
@@ -94,6 +95,7 @@ class ATOMICProcessor(DataProcessor):
                             ignore_blanks,
                             include,
                             exclude)
+        slef.data[split] = data
         i = 0
         print("num records ", split, num_records)
         for src, tgt in atomic_flattened:
