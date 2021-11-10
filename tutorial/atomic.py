@@ -10,6 +10,7 @@ import argparse
 import torch
 from openprompt.utils.logging import logger
 from comet.train.eval import *
+from comet.train.common import *
 
 parser = argparse.ArgumentParser("")
 parser.add_argument("--lr", type=float, default=5e-5)
