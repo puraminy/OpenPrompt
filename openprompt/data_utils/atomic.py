@@ -76,8 +76,8 @@ class ATOMICProcessor(DataProcessor):
         exclude = ""
         num_samples = 100 if split  == "train" else 50
         qtemp, anstemp = create_templates(method, wrap, frozen)
-        qtemp = "{event}"
-        anstemp = "{resp}"
+        #qtemp = "{event}"
+        #anstemp = "{resp}"
         logger.info("qtemp: %s", qtemp)
         logger.info("ans temp: %s", anstemp)
         include, exclude = filter_inputs(include, exclude, lang)
