@@ -123,7 +123,7 @@ def generation_metric(hypos,
 
         from nltk.translate.bleu_score import sentence_bleu
         from nltk.tokenize import word_tokenize
-        from nltk.translate.bleu_score import smoothingfunction
+        from nltk.translate.bleu_score import SmoothingFunction
         smoothie = SmoothingFunction().method4 # a function for smooth
         scores = []
         
