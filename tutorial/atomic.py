@@ -107,8 +107,9 @@ def main(lr, plm_eval_mode, model_name_or_path, extend_tok, model, train_samples
     # To better understand how does the template wrap the example, we visualize one instance.
     # You may observe that the example doesn't end with <|endoftext|> token. Don't worry, adding specific end-of-text token
     # is a language-model-specific token. we will add it for you in the TokenizerWrapper once you pass `predict_eos_token=True`
-    an_example = dataset['train'][0]
-    print(an_example)
+    for i in range(4):
+        an_example = dataset['train'][i]
+        print(an_example)
 
     wrapped_example = mytemplate.wrap_one_example(an_example) 
     print(wrapped_example)
