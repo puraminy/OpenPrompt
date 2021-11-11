@@ -9,7 +9,6 @@
 import argparse
 import torch
 from openprompt.utils.logging import logger
-from comet.train.eval import *
 from comet.train.common import *
 from openprompt.data_utils.atomic import ATOMICProcessor
 from tqdm import tqdm
